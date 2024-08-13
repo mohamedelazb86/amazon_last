@@ -1,4 +1,23 @@
+{% load django_bootstrap5 %}
 <h1>POST DEATIL</h1>
 
 <h3>{{post}}</h3>
 <img src="{{post.image.url}}" alt="">
+
+<h1>   ALL COMMENTS ! ({{reviews|length}})</h1>
+{% for review in reviews %}
+<ul>
+    <li><h3>  {{review.user}}   &&   {{review.rate}}  && {{review.review}}</h3></li>
+    
+</ul>
+
+{% endfor %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% bootstrap_button button_type="submit" content="CREATE REVIEW" %}
+    {% bootstrap_button button_type="reset" content="Cancel" %}
+    
+</form>

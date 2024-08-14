@@ -4,8 +4,18 @@ from .forms import postForm,ReviewForm
 
 def post_list(request):
     posts=Post.objects.all()
+    if request.method=='POST':
+        form=postForm(request.POST,request.FILES)
+        if form.is_valid():
+            myform=form.save(commit=False)
+            myform.user=request.user
+            myform.save()
+            return redirect('/posts/')
+    else:
+        form=postForm()
     context={
-        'posts':posts
+        'posts':posts,
+        'form':form
     }
     return render(request,'posts/post_list.html',context)
 

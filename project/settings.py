@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # my apps
     'posts',
+    'products',
 
     # my package 
     "django_bootstrap5",

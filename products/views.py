@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 from .models import Product,Brand,Review,ProductImage
 from django.views.generic import ListView,DetailView
@@ -20,4 +20,21 @@ class Product_Detail(DetailView):
         context["related"] = Product.objects.filter(brand=self.get_object().brand)
 
         return context
+
+
+def add_review(request,slug):
+
+    user=request.user
+    product=Product.objects.get(slug=slug)
+    rate=request.POST['rating']
+    review=request.POST['review']
+
+    Review.objects.create(
+        user=user,
+        product=product,
+        rate=rate,
+        review=review
+    )
+    return redirect(f'/products/{slug}')
+
     
